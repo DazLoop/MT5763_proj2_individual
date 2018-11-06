@@ -28,7 +28,7 @@ library(parallel)
 
 #-----Load Data fitness---------------------------------------------------------
 
-fitness <- read.csv("fitness.csv", header = T)
+fitness <- read.csv("data/fitness.csv", header = T)
 head(fitness)
 
 
@@ -40,8 +40,8 @@ head(fitness)
 #-----RunTime = -2.62865, meaning that everytime RunTime increases by 1 unit, the
 #Oxygen level decreases by 2.6--------------------------------------------------
 
-fitnessLM <- lm(Oxygen ~ Age + Weight + RunTime + RestPulse + RunPulse + 
-                  MaxPulse, data = fitness)
+fitnessLM <- lm(Oxygen ~ Age + Weight + RunTime + RestPulse + RunPulse + MaxPulse, 
+                data = fitness)
 
 fitnessLM
 
@@ -160,6 +160,8 @@ durbinWatsonTest(resid(finalModel))
 #QQ NORM
 par(mfrow = c(2,2))
 plot(finalModel)
+
+
 #QQ PLOT the residuals follow the normal distribution
 
 #shapiro test

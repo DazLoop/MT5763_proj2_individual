@@ -1,0 +1,98 @@
+---
+title: "Oxygen intake rates - a measure of aerobic fitness"
+author: '180029941'
+date: "06/11/2018"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\pagebreak..
+
+##Executive Summary
+
+
+## Introduction
+
+The present report aims to build a model that predicts Oxygen intake rates (a measure of aerobic fitness) supported on a series of measurements. The fitness dataset from Rawlings (1998) contains measurements of the following seven variables obtained from 31 men:
+
+* Age: Age in years;  
+* Weight: Weight in kg;  
+* Oxygen: Oxygen intake rate, ml per kg body weight per minute;  
+* RunTime: time to run 1.5 miles in minutes;
+* RestPulse: heart rate while resting;  
+* RunPulse: heart rate at end of run;  
+* MaxPulse: maximum heart rate recorded while running; 
+
+From the data set fitness.csv a linear model (predicting Oxygen) will be developed. The bootstrapping function used to provide confidence intervals came from an original function provided by Donovan (2018), which was improved at a later stage. 
+
+The current report uses R 3.5.1 software (R Core Team, 2018).  It was produced a linear model which was fitted in each analysis and the bootstrap used to generate confidence intervals for each of the covariates of interest. We aim to exclude variables that present, essentially, the same information about response avoiding this way collinearity. 
+
+The reasonability of the assumptions on which the model is based were assessed:  
+
+1. Linearity  
+2. Homoscedasticity  
+3. Independence  
+4. Normality  
+
+Bootstrap methods were used in order draw conclusion to hypothesis tests in regards to the significance of the relationships between the response and the parameter estimates can be drawn using bootstrap methods. If the confidence interval contains zero, one fails to reject the null hypothesis, and if it does not contain zero, one can reject the null hypothesis.
+
+
+##Findings
+
+Based on our fitness data set, we are going to implement a Linear Regression Model which explanatory variables (e.g. Age, Weight, RunTime, RestPulse, RunPulse and MaxPulse) will help explain or predict the behaviour of the response variable (Oxygen). The model is specified as follows:
+
+..
+```{r load, echo=FALSE}
+fitness <- read.csv("data/fitness.csv", header = T)
+head(fitness)
+```
+
+
+
+```{r lm, echo=FALSE}
+fitnessLM <- lm(Oxygen ~ Age + Weight + RunTime + RestPulse + RunPulse + MaxPulse, 
+                data = fitness)
+
+fitnessLM
+
+```
+
+A first approach to the relatioship between the variables within our **fitnessLM** ..
+model present the following results:
+
+* (Intercept) =  102.93448. This value represents the value of the intercept Beta Zero(B0),  
+when  all other Betas are zero. Therefore, y = Bo = Oxygen = 102.93448.  
+
+* RunTime = -2.62865. Meaning that everytime RunTime increases by 1 unit, the Oxygen level decreases by 2.6.
+
+```{r Summary, echo=FALSE}
+
+summary (fitnessLM)
+
+```
+
+In order to forsee how our fitnessLM model is behaving, it can be produced a summary..
+of the model, given the variables
+
+
+
+
+
+
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

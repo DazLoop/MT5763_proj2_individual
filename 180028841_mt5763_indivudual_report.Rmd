@@ -1,0 +1,51 @@
+---
+title: '180029941'
+author: '180029941'
+date: "06/11/2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## \pagebreak  
+
+##Introduction  
+
+The present report aims to build a model that predicts Oxygen intake rates (a measure of aerobic fitness) supported on a series of measurements. The fitness dataset from Rawlings (1998) contains measurements of the following seven variables obtained from 31 men:
+
+• Age: Age in years;  
+• Weight: Weight in kg;  
+• Oxygen: Oxygen intake rate, ml per kg body weight per minute;  
+• RunTime: time to run 1.5 miles in minutes  ;
+• RestPulse: heart rate while resting;  
+• RunPulse: heart rate at end of run;  
+• MaxPulse: maximum heart rate recorded while running; 
+
+From the data set fitness.csv a linear model (predicting Oxygen) will be developed. The bootstrapping function used to provide confidence intervals came from an  original function  provided by Donovan (2018) and improved at a later stage. The current report uses R 3.5.1 software (R Core Team, 2018).  
+
+A linear model was fitted in each analysis and the bootstrap was used to generate confidence intervals for each of the covariates of interest. Conclusions to hypothesis tests regarding the significance of the relationships between the response and the parameter estimates can be drawn using bootstrap methods. If the confidence interval contains zero, one fails to reject the null hypothesis, and if it does not contain zero, one can reject the null hypothesis.
+
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r echo=FALSE}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+|      Note that the `echo = FALSE` parameter was added to the code chunk  
+to prevent printing of the R code that generated the plot.
