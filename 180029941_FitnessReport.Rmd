@@ -8,7 +8,15 @@ output:
     word_document: default
 toc: yes
   
----
+#*this is a test*  or 
+##_this is a test_
+###**BOLD** or 
+#__BOLD__
+
+...'x <- c(1, 2, 3)'
+...'y <- c(4, 5, 6)'
+...'z <- x + y'
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
