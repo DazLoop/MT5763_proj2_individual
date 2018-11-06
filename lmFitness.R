@@ -107,22 +107,22 @@ finalModel <- step(fitnessLM)
 #The AIC value is now (59.04). Removing either RunPulse, or Age, or RunTime would 
 #result in a much higher AIC. Therefore it is better to keep the model as it is.
 
-
-#checking model assumptiion pag 18, 2.6
-# 1) assessing linearity -pg 18
+#-----CHECKING THE MODEL ASSUMPTIONS--------------------------------------------
+#-----I) ASSESSING LINEARITY----------------------------------------------------
+#conclude about the plot -  age and RunPulse are similar and close to zero. 
+#The steeper the slop the better,
+#the covariate RunTime gives us more info about the selected model so Runtime 
+#is the most important variable within the model.
 
 par(mfrow = c(3,2))
 termplot(finalModel, se = T)
 termplot(finalModel, se = T, partial.resid = TRUE, col.res = 'blue')
 
-#conclude about the plot -  age and runpulse ar esimilar and close to zero. The steeper the slop the better,
-#the covarinate runtime gives us more info about the selected modelso runtime is the most 
-#important varial within the model.
+#-----Partial Residual Plots----------------------------------------------------
+# pg 19 ...points 1 to 4) we have add on the residuals to model and once again 
+#RunTime seem to present the the best fit to the model as the residuals tend to 
+#be more concentrated along the slope line. pg. 19
 
-# pg 19 ...points 1 to 4) we have add on the residuals to model and once again runtime seem to present the 
-#the best fit to the model as the residuals tend to be more concentrated along the slope line.
-
- #pg19
 plot(effect("Age", finalModel, rug = TRUE))
 
 plot(effect("RunPulse", finalModel, rug = TRUE))
@@ -130,23 +130,32 @@ plot(effect("RunPulse", finalModel, rug = TRUE))
 plot(effect("RunTime", finalModel, rug = TRUE))
 
 #the smother the line the better the variable contribution to the model.
-#once again runtime
+#once again runtime - assessing the constant variance pg 21
 
-#assessing the constant variance pg 21
 
-#the plot of the finalModel
+#-----II) ASSESSING CONSTANT VARIANCE - HOMOSCEDASTICITY------------------------
+#-----The Plot of the finalModel - pg 21 - 2.6.3--------------------------------
+
 par(mfrow = c(2,2))
 plot(finalModel)
 
-#Scale-location - the red loine is almost straight and the residual points are randomly spread across the line.
-#this way we can validate the constant variance assumption homocedscity
+#Scale-location - the red line is almost straight and the residual points are 
+#randomly spread across the line.
+#this way we can validate the constant variance assumption homoscedasticity.
 
+
+#-----III) ASSESSING INDEPENDENCE-----------------------------------------------
 #ASSESSING THE INDEPENDENCE pg24 paragraph 2.6.4
+#revise this part if necessary
+
+
+durbinWatsonTest(resid(finalModel))
+
 #teste durbin watson 
 #H0 correlation of the errors equal to zero
 #pvalue > 0.05 fail to reject the H0 the indepence assumption is verified
 
-#4)NORMALITY P26 , 2.6.5
+#-----IV) NORMALITY P26 , 2.6.5-----------------------------------------------------
 
 #QQ NORM
 par(mfrow = c(2,2))
@@ -227,128 +236,4 @@ bootResCI
 #the fact that there is no zero within the CI we can reject the H0 being b0=b1=bn
 #explain boostrap google
 #
-
-############################################################################
-
-#-----We will be looking at 3 Automated Model Selection Procedures--------------
-
-#-----1. Backward Elimination Method--------------------------------------------
-#-----Works with the most general model and drops variables one by one until the
-#-----best model is reached.----------------------------------------------------
-#
-#-----using command step()------------------------------------------------------
-
-step(lm(Oxygen ~ Age + Weight + RunTime + RestPulse + RunPulse + MaxPulse, 
-        data = fitness), direction = "backward")
-
-#-----2. Forward Step Method - Intercept of the Model --------------------------
-#-----Starts with the simplest model of all and adds suitable variables, one by 
-#-----one, until the best model is reached.-------------------------------------
-#-----using command step()------------------------------------------------------
-
-step(lm(Oxygen ~ 1, data = fitness), direction = "forward", 
-     scope = ~ Age + Weight + RunTime + RestPulse + RunPulse + MaxPulse)
-
-
-#-----3. Stepwise Method (both directions - Backwards and Forward---------------
-#-----The Stepwise procedure combines the two previous methods (Forward and----- 
-#-----Backwards Methods), where variables can be added and dropped.-------------
-#-----In all these 3 methods, the AIC is used as the criteria to select tje model,
-#-----which is based in the following rule: the lower the AIC the better the model.
-#-----using command step()------------------------------------------------------
-#-----starting the method with all the variables--------------------------------
-
-step(lm(Oxygen ~ Age + Weight + RunTime + RestPulse + RunPulse + MaxPulse, 
-        data = fitness), direction = "both")
-
-#-----data set------------------------------------------------------------------
-# getwd()
-# dim(fitness)
-# head(fitness, 31)
-# length(fitness)
-# fitness[2:4, 5:7]
-# fitness[ , 1]
-# names(fitness)
-# fitness$Age
-# mean(fitness$Age)
-# sd(fitness$Age)
-# sum(fitness$Age)
-
-#-------------------------------------------------------------------------------
-
-w
-summary(fitnessLM)
-
-names(fitnessLM)
-str(fitnessLM)
-head(fitnessLM$x)
-
-#-----Recalling y = XB----------------------------------------------------------
-
-prediction <- fitnessLM$x%*%coef(fitnessLM)
-head(prediction)
-summary(fitnessLM)
-coef(fitnessLM)
-
-#-----Confidence Interval CI----------------------------------------------------
-
-confint(fitnessLM)
-
-
-#-----residuals-----------------------------------------------------------------
-
-
-head(resid(fitnessLM))
-
-
-#-----Checking the Assumptions--------------------------------------------------
-
-#-----1. The adquacy of our model for the signal
-#-----2. The adquacy of our model fro the noise
-
-qqnorm(resid(fitnessLM))
-
-
-#-----Shapiro-Wilk normality test-----------------------------------------------
-#an approximate p-value < 0.1 - the test is adequate
-shapiro.test(resid(fitnessLM))
-
-fitnessResid <- resid(fitnessLM)
-par(mfrow = c(2, 2))
-plot(fitness$Age, fitnessResid)
-plot(fitness$Weight, fitnessResid)
-plot(fitness$Oxygen, fitnessResid)
-plot(fitness$RunTime, fitnessResid)
-plot(fitness$RestPulse, fitnessResid)
-plot(fitness$RunPulse, fitnessResid)
-
-plot(factor(fitness$Age), fitnessResid)
-plot(factor(fitness$Weight), fitnessResid)
-plot(factor(fitness$Oxygen), fitnessResid)
-plot(factor(fitness$RunTime), fitnessResid)
-plot(factor(fitness$RestPulse), fitnessResid)
-plot(factor(fitness$RunPulse), fitnessResid)
-
-
-plot(fitnessResid, fitted(fitnessLM))
-
-AIC(fitnessLM)
-
-
-par(mfrow = c(2, 2))
-plot(fitnessLM)
-
-#-----Backward Elimination Method-----------------------------------------------
-step(fitnessLM)    
-
-
-#-----Predictions--------------------------------------------------------------
-
-
-table(fitness$Age)
-table(fitness$Weight)
-table(fitness$Oxygen)
-table(fitness$RunTime)
-table(fitness$RestPulse)
-table(fitness$RunPulse)
 
