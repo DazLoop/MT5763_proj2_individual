@@ -81,7 +81,8 @@ summary (fitnessLM)
 #display if bigger than 5 they are correlated therefore give same info and we 
 
 vif(fitnessLM)
-vif(fitnessLM) > 5  # bololean TRUE remove Max Pulse
+vif(fitnessLM) > 5  
+# bololean TRUE remove Max Pulse
 
 
 # updated model removed MaxPulse - we now have the new fit for the original model
@@ -238,4 +239,35 @@ bootResCI
 #the fact that there is no zero within the CI we can reject the H0 being b0=b1=bn
 #explain boostrap google
 #
+######PART THREE################
+
+randFunc <- function(nRand){
+  set.seed(180029941)
+  fitness <- read.csv("data/fitness.csv", header = T)
+  estimatedCoef <- coef(lm(Oxygen ~ Age + RunTime + RunPulse, data = fitness))
+  
+  simResults <- matrix(NA, nRand + 1, 4)
+  simData <- fitness
+  
+  for(i in 2:(nRand + 1)) {
+    simData$Oxygen <- sample(fitness$Oxygen, nrow(fitness), replace = F)
+    simLm <- lm(Oxygen ~ Age + RunTime + RunPulse, data = simData)
+    simResults[i, ] <- coef(simLm)
+  }
+  
+  simResults[1, ] <- estimatedCoef
+  colnames(simResults) <- c('intercept', 'Age', 'RunTime', 'RunPulse')
+  
+  simPvalues <- matrix(NA, 1, 4)
+  for(i in 1:4){
+    locEst <- c(1, rep(0, 999))
+    locEst <- locEst[order(simResults[, i])]
+    k <- which(locEst == 1)
+    simPvalues[i] <- min(k / (nRand + 1), 1 - k / (nRand + 1)) * 2
+  }
+  colnames(simPvalues) <- c('intercept', 'Age', 'RunTime', 'RunPulse')
+  return(simPvalues)
+}
+randFunc(1000)
+
 
