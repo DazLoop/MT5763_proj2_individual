@@ -124,9 +124,9 @@ termplot(finalModel, se = T, partial.resid = TRUE, col.res = 'blue')
 #RunTime seem to present the the best fit to the model as the residuals tend to 
 #be more concentrated along the slope line. pg. 19
 
-plot(effect("Age", finalModel, rug = TRUE))
-
-plot(effect("RunPulse", finalModel, rug = TRUE))
+plot(effect("Age", finalModel, rug = TRUE)) 
+  
+plot(effect("RunPulse", finalModel, rug = TRUE)) 
 
 plot(effect("RunTime", finalModel, rug = TRUE))
 
@@ -269,5 +269,6 @@ randFunc <- function(nRand){
   return(simPvalues)
 }
 randFunc(1000)
+
 
 

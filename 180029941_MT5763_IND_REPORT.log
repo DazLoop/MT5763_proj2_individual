@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.10.30)  6 NOV 2018 23:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.10.30)  7 NOV 2018 01:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -628,16 +628,22 @@ e
 [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 199.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 148.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [3]
-<images/1_fitnessLM_sum.png, id=27, 460.72125pt x 66.2475pt>
+)
+<images/1_fitnessLM_sum.png, id=19, 460.72125pt x 66.2475pt>
 File: images/1_fitnessLM_sum.png Graphic file (type png)
 <use images/1_fitnessLM_sum.png>
-Package pdftex.def Info: images/1_fitnessLM_sum.png  used on input line 217.
+Package pdftex.def Info: images/1_fitnessLM_sum.png  used on input line 215.
 (pdftex.def)             Requested size: 460.72012pt x 66.24733pt.
+[3]
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 221.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 222.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/lm/ot1lmr.fd
@@ -676,26 +682,26 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 256
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 259
 .
 (/usr/local/texlive/2018/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 
-LaTeX Warning: Command \H invalid in math mode on input line 266.
+LaTeX Warning: Command \H invalid in math mode on input line 268.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.266 (\(\H_0\))}
-                  which assumes that all the model coefficients (\(\beta_0\), 
+l.268 ...bf{reject the Null Hypothesis (\(\H_0\))}
+                                                   
 Here is how much of TeX's memory you used:
- 12505 strings out of 492649
- 183914 string characters out of 6129621
+ 12535 strings out of 492649
+ 184745 string characters out of 6129621
  291758 words of memory out of 5000000
- 16181 multiletter control sequences out of 15000+600000
- 44306 words of font info for 61 fonts, out of 8000000 for 9000
+ 16209 multiletter control sequences out of 15000+600000
+ 44588 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,6n,38p,252b,456s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,6n,38p,252b,362s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 !  ==> Fatal error occurred, no output PDF file produced!

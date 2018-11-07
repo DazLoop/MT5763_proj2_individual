@@ -132,63 +132,61 @@
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
-\pagebreak..
+\pagebreak
 
 \section{Executive Summary}\label{executive-summary}
 
-\pagebreak..
+\pagebreak
 
 \section{Introduction}\label{introduction}
 
-~~~The present report aims to build a model that predicts Oxygen intake
+The present report aims to build a model that predicts Oxygen intake
 rates (a measure of aerobic fitness) supported on a series of
 measurements. The fitness dataset from Rawlings (1998) contains
 measurements of the following seven variables obtained from 31 men:
 
-~~~* Age: Age in years;\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}* Weight: Weight in
-kg;\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}* Oxygen: Oxygen
-intake rate, ml per kg body weight per minute;\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}* RunTime: time to
-run 1.5 miles in minutes;\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}* RestPulse: heart
-rate while resting;\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}* RunPulse: heart
-rate at end of run;\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}* MaxPulse: maximum
-heart rate recorded while running;
+\begin{verbatim}
+* Age: Age in years;  
+* Weight: Weight in kg;  
+* Oxygen: Oxygen intake rate, ml per kg body weight per minute;  
+* RunTime: time to run 1.5 miles in minutes;
+* RestPulse: heart rate while resting;  
+* RunPulse: heart rate at end of run;  
+* MaxPulse: maximum heart rate recorded while running; 
+\end{verbatim}
 
-~~~From the data set fitness.csv a linear model (predicting Oxygen) will
-be developed. The bootstrapping function used to provide confidence
+From the data set fitness.csv a linear model (predicting Oxygen) will be
+developed. The bootstrapping function used to provide confidence
 intervals came from an original function provided by Donovan (2018),
 which was improved at a later stage.
 
-~~~The report uses R 3.5.1 software (R Core Team, 2018). It was produced
-a linear model which was fitted in each analysis and the bootstrap used
-to generate confidence intervals for each of the covariates of interest.
-We aim to exclude variables that present, essentially, the same
-information about response avoiding this way collinearity.
+The report uses R 3.5.1 software (R Core Team, 2018). It was produced a
+linear model which was fitted in each analysis and the bootstrap used to
+generate confidence intervals for each of the covariates of interest. We
+aim to exclude variables that present, essentially, the same information
+about response avoiding this way collinearity.
 
-~~~The reasonability of the assumptions on which the model is based were
+The reasonability of the assumptions on which the model is based were
 assessed:
 
-~~~1. Linearity\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}2. Homoscedasticity\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}3. Independence\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}4. Normality
+\begin{verbatim}
+1. Linearity  
+2. Homoscedasticity  
+3. Independence  
+4. Normality  
+\end{verbatim}
 
-~~~Bootstrap methods were used in order draw conclusion to hypothesis
-tests in regards to the significance of the relationships between the
-response and the parameter estimates. If the confidence interval
-contains zero, one fails to reject the null hypothesis, and if it does
-not contain zero, one can reject the null hypothesis.
+Bootstrap methods were used in order draw conclusion to hypothesis tests
+in regards to the significance of the relationships between the response
+and the parameter estimates. If the confidence interval contains zero,
+one fails to reject the null hypothesis, and if it does not contain
+zero, one can reject the null hypothesis.
 
 \section{Exploratory Findings}\label{exploratory-findings}
 
 \subsection{Add title}\label{add-title}
 
-~~~Based on our fitness data set, we are going to implement a Linear
+Based on our fitness data set, we are going to implement a Linear
 Regression Model in which explanatory variables (e.g.~Age, Weight,
 RunTime, RestPulse, RunPulse and MaxPulse) will help explain or predict
 the behaviour of the response variable (Oxygen). The model is specified
@@ -209,8 +207,8 @@ as follows:
 ##    -0.36963      0.30322
 \end{verbatim}
 
-\textbar{} A first approach to the relatioship between the variables
-within our \textbf{fitnessLM} model present the following results:
+A first approach to the relatioship between the variables within our
+\textbf{fitnessLM} model present the following results:
 
 \begin{figure}
 \centering
@@ -218,15 +216,20 @@ within our \textbf{fitnessLM} model present the following results:
 \caption{fitnessLM}
 \end{figure}
 
-~~~* (Intercept) = 102.93448. This value represents the value of the
-intercept \(\beta_0\), when all other \(\beta\) are zero. Therefore, y =
-\(\beta_0\) = Oxygen = 102.93448.\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}* RunTime = -2.62865.
-Meaning that everytime RunTime increases by 1 unit, the Oxygen level
-decreases by 2.6.\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}In order to forsee
-how our fitnessLM model is behaving, it can be produced a
-\textbf{summary(fitnessLM)} of the model, given the variables.
+\begin{itemize}
+\item
+  (Intercept) = 102.93448. This value represents the value of the
+  intercept \(\beta_0\),\\
+  when all other \(\beta\) are zero. Therefore, y = \(\beta_0\) = Oxygen
+  = 102.93448.
+\item
+  RunTime = -2.62865. Meaning that everytime RunTime increases by 1
+  unit, the Oxygen level decreases by 2.6.
+\end{itemize}
+
+In order to forsee how our fitnessLM model is behaving, it can be
+produced a \textbf{summary(fitnessLM)} of the model, given the
+variables.
 
 \begin{verbatim}
 ## 
@@ -255,22 +258,22 @@ how our fitnessLM model is behaving, it can be produced a
 ## F-statistic: 22.43 on 6 and 24 DF,  p-value: 9.715e-09
 \end{verbatim}
 
-\textbar{} The \textbf{Residual Standard Error (2.317)} gives us an idea
-of how far the Oxygen levels are from the fitted model.
+The \textbf{Residual Standard Error (2.317)} gives us an idea of how far
+the Oxygen levels are from the fitted model.
 
-\textbar{} \textbf{Multiple R-Squared = 0.8487}. Almost 85\% of the
-variation in Oxygen can be explained by our model.
+\textbf{Multiple R-Squared = 0.8487}. Almost 85\% of the variation in
+Oxygen can be explained by our model.
 
-\textbar{} \textbf{p-value = 9.715e-09}. This value is extremely small,
-smaller than 0.05. Therefore, we \textbf{reject the Null Hypothesis
-(\(\H_0\))} which assumes that all the model coefficients (\(\beta_0\),
+\textbf{p-value = 9.715e-09}. This value is extremely small, smaller
+than 0.05. Therefore, we \textbf{reject the Null Hypothesis (\(\H_0\))}
+which assumes that all the model coefficients (\(\beta_0\),
 \(\beta_1\),\ldots{},\(\beta_n\)) are zero(0).
 
-~~~\textbf{Pr (\textgreater{}\textbar{}t\textbar{})} gives us the
-p-value for the t-test. In this case, all the values which are below
-0.05 are of interest to our model as it can be improved by those. ..
+\textbf{Pr (\textgreater{}\textbar{}t\textbar{})} gives us the p-value
+for the t-test. In this case, all the values which are below 0.05 are of
+interest to our model as it can be improved by those. ..
 
-~~~In this particular case, and looking at the value of \textbf{Weight
+In this particular case, and looking at the value of \textbf{Weight
 (0.18687)}, it can be observed that it is greater than 0.05. Therefore,
 \textbf{it fails to reject the \(\H_0\)} (Null Hypothes) which is based
 on the assumption that all the coefificients (\(\beta_0\),
